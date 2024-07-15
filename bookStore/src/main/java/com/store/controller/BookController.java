@@ -16,7 +16,7 @@ public class BookController {
     BookService bookService;
 
     @PostMapping(value = "/book/add")
-    public ResultData<String> addPay(@RequestBody Book book)
+    public ResultData<String> addBook(@RequestBody Book book)
     {
         System.out.println(book.toString());
         int i = bookService.add(book);
@@ -25,13 +25,13 @@ public class BookController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "/book/del/{isbn}")
-    public ResultData<Integer> deletePay(@PathVariable("isbn") String isbn) {
+    public ResultData<Integer> deleteBook(@PathVariable("isbn") String isbn) {
         int i = bookService.delete(isbn);
         return ResultData.success(i);
     }
 
     @PutMapping(value = "/book/update")
-    public ResultData<String> updatePay(@RequestBody Book book)
+    public ResultData<String> updateBook(@RequestBody Book book)
     {
 
         int i = bookService.update(book);
@@ -54,7 +54,7 @@ public class BookController {
 
 
     @RequestMapping(value = "/book/error",method = RequestMethod.GET)
-    public ResultData<Integer> getPayError()
+    public ResultData<Integer> getBookError()
     {
         Integer i = Integer.valueOf(200);
         try

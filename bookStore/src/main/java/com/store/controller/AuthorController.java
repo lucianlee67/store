@@ -13,7 +13,7 @@ public class AuthorController {
     AuthorService authorService;
 
     @PostMapping(value = "/author/add")
-    public ResultData<String> addPay(@RequestBody Author author)
+    public ResultData<String> addAuthor(@RequestBody Author author)
     {
         System.out.println(author.toString());
         int i = authorService.add(author);
@@ -21,13 +21,13 @@ public class AuthorController {
     }
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "/author/del/{id}")
-    public ResultData<Integer> deletePay(@PathVariable("id") Integer id) {
+    public ResultData<Integer> deleteAuthor(@PathVariable("id") Integer id) {
         int i = authorService.delete(id);
         return ResultData.success(i);
     }
 
     @PutMapping(value = "/author/update")
-    public ResultData<String> updatePay(@RequestBody Author author)
+    public ResultData<String> updateAuthor(@RequestBody Author author)
     {
 
         int i = authorService.update(author);
@@ -44,7 +44,7 @@ public class AuthorController {
     //全部查询getall作为家庭作业
 
     @RequestMapping(value = "/author/error",method = RequestMethod.GET)
-    public ResultData<Integer> getPayError()
+    public ResultData<Integer> getAuthorError()
     {
         Integer i = Integer.valueOf(200);
         try
