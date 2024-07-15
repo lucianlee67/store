@@ -75,6 +75,9 @@
         ]
     }'
     
+    DELETE REQUEST 
+    DELETE localhost:8001/book/del/{isbn}
+
     GET REQUEST WITH TITLE 
     GET localhost:8001/book/get/title/{title}
 
