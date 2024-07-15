@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.store.mapper.BookMapper">
+
+    <resultMap id="AuthorResultMap" type="com.store.entities.Author">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="birthday" property="birthday"/>
+    </resultMap>
+
+    <resultMap id="BookResultMap" type="com.store.entities.Book">
+        <id column="isbn" property="isbn"/>
+        <result column="title" property="title"/>
+        <result column="year" property="year"/>
+        <result column="price" property="price"/>
+        <result column="genre" property="genre"/>
+        <collection property="authors" ofType="com.store.entities.Author"
+                    column="isbn" select="selectAuthorsByBookIsbn"/>
+    </resultMap>
+
+    <select id="selectBookByIsbn" resultMap="BookResultMap">
+        SELECT isbn, title, year, price, genre
+        FROM books
+        WHERE isbn = #{isbn}
+    </select>
+
+    <select id="selectBookByTitle" resultMap="BookResultMap">
+        SELECT isbn, title, year, price, genre
+        FROM books
+        WHERE title = #{title}
+    </select>
+
+    <select id="selectAuthorsByBookIsbn" resultMap="AuthorResultMap">
+        SELECT a.id, a.name, a.birthday
+        FROM authors a
+                 JOIN book_authors ba ON a.id = ba.author_id
+    </select>
+
+    <insert id="insertBook">
+        INSERT INTO books (isbn, title, year, price, genre)
+        VALUES (#{isbn}, #{title}, #{year}, #{price}, #{genre})
+    </insert>
+
+    <insert id="insertBookAuthors">
+        INSERT INTO book_authors (book_isbn, author_id)
+        VALUES (#{bookIsbn}, #{authorId})
+    </insert>
+
+    <update id="updateBook">
+        UPDATE books
+        SET title = #{title}, year = #{year}, price = #{price}, genre = #{genre}
+        WHERE isbn = #{isbn}
+    </update>
+
+    <delete id="deleteBook">
+        DELETE FROM books
+        WHERE isbn = #{isbn}
+    </delete>
+
+    <delete id="deleteBookAuthorsByBookIsbn">
+        DELETE FROM book_authors
+        WHERE book_isbn = #{isbn}
+    </delete>
+
+</mapper>
