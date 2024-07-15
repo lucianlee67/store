@@ -1,5 +1,5 @@
 1. Create database 
-    
+    ```sql 
     CREATE DATABASE bookstore;
     
     USE bookstore;
@@ -29,6 +29,7 @@
 2. CHANGE DATABASE CONNECTION CONFIG in APPLICATION.YML
 
 3. APIS
+     ```text 
     ADD REQUEST
     POST localhost:8001/book/add
     BODY
