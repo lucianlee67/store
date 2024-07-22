@@ -34,7 +34,8 @@
     <select id="selectAuthorsByBookIsbn" resultMap="AuthorResultMap">
         SELECT a.id, a.name, a.birthday
         FROM authors a
-                 JOIN book_authors ba ON a.id = ba.author_id
+        JOIN book_authors ba ON a.id = ba.author_id
+        WHERE ba.book_isbn = #{isbn}
     </select>
 
     <insert id="insertBook">
